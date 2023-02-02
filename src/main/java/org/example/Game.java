@@ -9,20 +9,33 @@ import java.io.IOException;
 import java.net.URL;
 
 public class Game extends JFrame {
+    public enum State { PLAYING, GAMEOVER }
+
+    private State state = State.GAMEOVER;
     public Game() {
+        initUI();
+        Arena p = new Arena();
+
+        this.add(p);
+        this.setVisible(true);
+    }
+
+    public void initUI() {
         this.setTitle("myTetris");
+        this.setSize(new Dimension (400, 500));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Component emptyLabel = new Label();
         this.getContentPane().add(emptyLabel, BorderLayout.CENTER);
-        // size the frame to fit all content
-        this.pack();
-        // set location of window
+        // center window in screen
         this.setLocationRelativeTo(null);
-        // set an icon image for the window
-        // N.B. - SWING DOES NOT SUPPORT ICONS ON MacOS
-        this.setIconImage(new ImageIcon("icon.png").getImage());
-        this.setVisible(true);
     }
+
+    public void start() {
+        setGameState(State.PLAYING);
+    }
+
+    public void setGameState(State s) { state = s; }
+    public State getGameState() { return state; }
     public void processInput() {};
     public void update() {};
     public void render() {};
